@@ -1,0 +1,10 @@
+excludes.txt
+includes.txt
+updates.txt
+.gitignore
+.git
+install.sh
+README.md
+flake.lock
+hardware-configuration.nix
+scripts_install/
