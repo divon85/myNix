@@ -40,15 +40,6 @@
         # Apps
         grimblast                                       # Screenshot tools
 
-        # Hyprland utils
-        waybar                                          # Status bar
-        rofi-wayland                                    # Application launcher
-        wl-clipboard                                    # Clipboard functionality
-        wlogout                                         # logout function
-        hyprlock                                        # lockscreen in hyprland
-        hypridle                                        # enable sleep when idling in hyprland
-        hyprpaper                                       # wallpaper
-
         # Programming Language
         libgcc                                          # C and C++
         julia                                           # Julia programming

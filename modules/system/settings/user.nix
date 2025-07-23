@@ -5,7 +5,7 @@
         isNormalUser = true;
         description = userSettings.name;
         extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
-        shell = pkgs.zsh;
+        # shell = pkgs.zsh;
         packages = [];
     };
 }

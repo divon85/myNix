@@ -7,8 +7,8 @@
         ./settings/services.nix
         ./settings/timezone.nix
         ./settings/user.nix
-        inputs.home-manager.nixosModules.default
-        inputs.vscode-server.nixosModules.default
+        # inputs.home-manager.nixosModules.default
+        # inputs.vscode-server.nixosModules.default
         inputs.stylix.nixosModules.stylix
     ];
 
