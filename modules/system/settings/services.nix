@@ -7,8 +7,8 @@
         # Enable the OpenSSH daemon
         openssh.enable = true;
 
-        # Enable vscode-server
-        # vscode-server.enable = true;
+        # keyring
+        gnome.gnome-keyring.enable = true;
 
         # enable trash
         gvfs.enable = true;
