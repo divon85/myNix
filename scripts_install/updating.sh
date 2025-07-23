@@ -12,7 +12,7 @@ fi
 ## Copy hardware-configuration.nix
 if [ -f /etc/nixos/hardware-configuration.nix ]; then
     echo "Copying hardware-configuration.nix to $SCRIPT_DIR"
-    cp /etc/nixos/hardware-configuration.nix "$SCRIPT_DIR/confs/system_modules/hardware-configuration.nix"
+    cp /etc/nixos/hardware-configuration.nix "$SCRIPT_DIR/modules/system/hardware-configuration.nix"
 else
     echo "No hardware-configuration.nix found, skipping copy."
 fi

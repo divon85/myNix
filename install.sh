@@ -32,7 +32,7 @@ if [ -d "$SCRIPT_DIR" ]; then
                 echo "Copy new dotfiles"
                 source $INSTALLER_DIR/scripts_install/remove_old_dotfiles.sh
                 echo "Update nixos configs"
-                source $INSTALLER_DIR/scripts_install/updating.sh
+                source $INSTALLER_DIR/scripts_install/fresh_install.sh
                 echo
             elif [ $? -eq 130 ]; then
                 echo "Update canceled"
