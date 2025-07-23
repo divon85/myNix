@@ -1,32 +1,79 @@
 {
-  description = "NixOS + Home Manager + i3 + Stylix";
+    description = "Divon NixOS Flakes";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    home-manager.url = "github:nix-community/home-manager";
-    stylix.url = "github:nix-community/stylix";
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
-  };
+        hyprland.url = "github:hyprwm/Hyprland";
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }:
+        home-manager = {
+            url = "github:nix-community/home-manager/release-25.05";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+	    vscode-server.url = "github:nix-community/nixos-vscode-server";
+
+        stylix.url = "github:nix-community/stylix/release-25.05";
+    };
+
+    outputs = inputs@{ self, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+    # ---- SYSTEM SETTINGS ---- #
+    systemSettings = {
+        architecture = "x86_64-linux"; #system architecture
+        hostname = "igor-nixos";
+        timezone = "Asia/Tokyo";
+        locale = "en_US.UTF-8";
+        bootMode = "uefi"; # bios or uefi
+        bootMountPath = "/BOOT";
+        grubDevice = "/dev/sda"; # device identifier for grub; only used for legacy (bios) boot mode
+    };
+
+    # ---- USER SETTINGS ---- #
+    userSettings = {
+        username = "igor";
+        name = "Igor Novid";
+        email = "igornovid@outlook.com";
+        dotfilesDir = "~/.dotfiles";
+    };
+
+    lib = inputs.nixpkgs.lib;
+
+    pkgs = import inputs.nixpkgs {
+        system = systemSettings.architecture;
+        config = {
+            allowUnfree = true;
+            allowUnfreePredicate = (_: true);
+        };
+    };
+
     in {
-      nixosConfigurations.gifu = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./modules/system/configuration.nix
-          stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.igor = import ./modules/user/home.nix;
-          }
-        ];
-      };
+        nixosConfigurations = {
+            nixhost = lib.nixosSystem {
+                system = systemSettings.architecture;
+                modules = [
+                    ./confs/system_modules/configuration.nix
+                    ];
+                specialArgs = {
+                    inherit systemSettings;
+                    inherit userSettings;
+                    inherit inputs;
+                };
+            };
+        };
+
+        homeConfigurations = {
+            nixuser = inputs.home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = [
+                    ./confs/user_modules/home.nix
+                ];
+                extraSpecialArgs = {
+                    inherit systemSettings;
+                    inherit userSettings;
+                    inherit inputs;
+                };
+            };
+        };
     };
 }

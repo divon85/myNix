@@ -30,12 +30,12 @@ if [ -z "$EDITOR" ]; then
     EDITOR=nano;
 fi
 $EDITOR $SCRIPT_DIR/flake.nix;
-# $EDITOR $SCRIPT_DIR/modules/user/wm/hyprland/conf/extraConfigs/monitor.nix;
+$EDITOR $SCRIPT_DIR/confs/user_modules/wm/hyprland/conf/extraConfigs/monitor.nix;
 
 ## Copy hardware-configuration.nix
 if [ -f /etc/nixos/hardware-configuration.nix ]; then
     echo "Copying hardware-configuration.nix to $SCRIPT_DIR"
-    cp /etc/nixos/hardware-configuration.nix "$SCRIPT_DIR/modules/system/hardware-configuration.nix"
+    cp /etc/nixos/hardware-configuration.nix "$SCRIPT_DIR/confs/system_modules/hardware-configuration.nix"
 else
     echo "No hardware-configuration.nix found, skipping copy."
 fi
@@ -45,7 +45,7 @@ fi
 echo "Rebuilding the system with the new dotfiles"
 sudo nixos-rebuild switch --flake "$SCRIPT_DIR#nixhost"
 
-# ## Install home-manager
-# ## Credit to Librephoenix
-# echo "Installing home-manager"
-# nix run home-manager/master --extra-experimental-features 'nix-command flakes' -- switch --flake "$SCRIPT_DIR#nixuser"
+## Install home-manager
+## Credit to Librephoenix
+echo "Installing home-manager"
+nix run home-manager/master --extra-experimental-features 'nix-command flakes' -- switch --flake "$SCRIPT_DIR#nixuser"

@@ -22,7 +22,7 @@ fi
 echo "Rebuilding the system with the new dotfiles"
 sudo nixos-rebuild switch --flake "$SCRIPT_DIR#nixhost"
 
-# ## Install home-manager
-# ## Credit to Librephoenix
-# echo "Installing home-manager"
-# home-manager switch --flake "$SCRIPT_DIR#nixuser"
+## Install home-manager
+## Credit to Librephoenix
+echo "Installing home-manager"
+home-manager switch --flake "$SCRIPT_DIR#nixuser"

@@ -24,13 +24,11 @@ if [ -d "$SCRIPT_DIR" ]; then
             echo
             if gum confirm "Do you still want to update?" ;then
                 echo
-                echo "Create backup"
-                source $INSTALLER_DIR/scripts_install/backup.sh
                 echo "Update existing dotfiles"
                 echo "Copy new dotfiles"
                 source $INSTALLER_DIR/scripts_install/remove_old_dotfiles.sh
                 echo "Update nixos configs"
-                source $INSTALLER_DIR/scripts_install/fresh_install.sh
+                source $INSTALLER_DIR/scripts_install/updating.sh
                 echo
             elif [ $? -eq 130 ]; then
                 echo "Update canceled"
@@ -41,12 +39,8 @@ if [ -d "$SCRIPT_DIR" ]; then
                 exit;
             fi
         else
-            echo "Create backup"
-            source $INSTALLER_DIR/scripts_install/backup.sh
-            echo "Update existing dotfiles"
-            echo "Copy new dotfiles"
+            echo "Updating from version $installed_version to $installer_version."
             source $INSTALLER_DIR/scripts_install/remove_old_dotfiles.sh
-            echo "Update nixos configs"
             source $INSTALLER_DIR/scripts_install/updating.sh
         fi
     else
