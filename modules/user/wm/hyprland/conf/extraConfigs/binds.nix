@@ -5,16 +5,16 @@
             bind = SUPER, RETURN, exec, alacritty                                                       # Open Alactritty
             bind = SUPER, Q, killactive                                                                 # Close current window
             bind = SUPER CTRL, Q, exit                                                                  # Exit Hyprland
-            bind = SUPER, L, exec, ~/.dotfiles/scripts/logout.sh                                        # Close current window
-            bind = SUPER, C, exec, ~/.dotfiles/scripts/editor.sh                                        # Open text editor
-            bind = SUPER ALT, E, exec, ~/.dotfiles/scripts/filemanager.sh                               # Opens the filemanager
+            bind = SUPER, L, exec, ~/.dotfiles/modules/user/wm/hyprland/scripts/logout.sh               # Close current window
+            bind = SUPER, C, exec, ~/.dotfiles/modules/user/wm/hyprland/scripts/editor.sh               # Open text editor
+            bind = SUPER ALT, E, exec, ~/.dotfiles/modules/user/wm/hyprland/scripts/filemanager.sh      # Opens the filemanager
             bind = SUPER, E, exec, alacritty -e yazi                                                    # Open terminal filemanager
             bind = SUPER, T, togglefloating                                                             # Toggle between tiling and floating window
             bind = SUPER, F, fullscreen                                                                 # Open the window in fullscreen
             bind = SUPER, SPACE, exec, rofi -show drun                                                  # Open rofi
             bind = SUPER, P, pseudo,                                                                    # dwindle
             bind = SUPER, J, togglesplit,                                                               # dwindle
-            bind = SUPER, B, exec, ~/.dotfiles/scripts/browser.sh                                       # Opens the browser
+            bind = SUPER, B, exec, ~/.dotfiles/modules/user/wm/hyprland/scripts/browser.sh              # Opens the browser
             bind = SUPER, R, exec, retroarch
             binde = ALT,Tab,cyclenext
             binde = ALT,Tab,bringactivetotop
@@ -24,16 +24,16 @@
             bind = SUPER, right, movefocus, r # Move focus right
             bind = SUPER, up, movefocus, u # Move focus up
             bind = SUPER, down, movefocus, d # Move focus down
-            bind = SUPER ALT, left, swapwindow, l                                                    # Swap tiled window left
-            bind = SUPER ALT, right, swapwindow, r                                                   # Swap tiled window right
-            bind = SUPER ALT, up, swapwindow, u                                                      # Swap tiled window up
-            bind = SUPER ALT, down, swapwindow, d                                                    # Swap tiled window down
+            bind = SUPER ALT, left, swapwindow, l                                                       # Swap tiled window left
+            bind = SUPER ALT, right, swapwindow, r                                                      # Swap tiled window right
+            bind = SUPER ALT, up, swapwindow, u                                                         # Swap tiled window up
+            bind = SUPER ALT, down, swapwindow, d                                                       # Swap tiled window down
 
             # Resize tiling
-            bind = SUPER SHIFT, right, resizeactive, 100 0                                           # Increase window width with keyboard
-            bind = SUPER SHIFT, left, resizeactive, -100 0                                           # Reduce window width with keyboard
-            bind = SUPER SHIFT, down, resizeactive, 0 100                                            # Increase window height with keyboard
-            bind = SUPER SHIFT, up, resizeactive, 0 -100                                             # Reduce window height with keyboard
+            bind = SUPER SHIFT, right, resizeactive, 100 0                                              # Increase window width with keyboard
+            bind = SUPER SHIFT, left, resizeactive, -100 0                                              # Reduce window width with keyboard
+            bind = SUPER SHIFT, down, resizeactive, 0 100                                               # Increase window height with keyboard
+            bind = SUPER SHIFT, up, resizeactive, 0 -100                                                # Reduce window height with keyboard
 
             # Switch workspaces with mainMod + [0-9]
             bind = SUPER, 1, workspace, 1 # Switch to workspace 1

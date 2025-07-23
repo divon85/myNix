@@ -16,9 +16,7 @@
         ./style/stylix.nix
         ./system/icons.nix
         ./system/xdgs.nix
-        ./wm/hyprland/hyprland.nix
-        ./wm/hyprland/hyprlock.nix
-        ./wm/waybar/waybar.nix
+        (./. + "/wm"+("/"+userSettings.wm)+".nix")
         inputs.stylix.homeModules.stylix
     ];
 

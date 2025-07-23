@@ -4,25 +4,17 @@
         ./apps/programs.nix
         ./apps/software.nix
         ./apps/thunar.nix
+        ./configs/bootloader.nix
+        ./configs/networking.nix
+        ./configs/services.nix
+        ./configs/timezone.nix
+        ./configs/user.nix
         ./style/stylix.nix
-        ./systems/bootloader.nix
-        ./systems/networking.nix
-        ./systems/services.nix
-        ./systems/timezone.nix
-        ./wm/hyprland.nix
+        (./. + "/wm"+("/"+userSettings.wm)+".nix")
         inputs.home-manager.nixosModules.default
         inputs.vscode-server.nixosModules.default
         inputs.stylix.nixosModules.stylix
     ];
-
-    # User account
-    users.users.${userSettings.username} = {
-        isNormalUser = true;
-        description = userSettings.name;
-        extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
-        shell = pkgs.zsh;
-        packages = [];
-    };
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

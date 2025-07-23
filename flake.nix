@@ -34,6 +34,7 @@
         username = "igor";
         name = "Igor Novid";
         email = "igornovid@outlook.com";
+        wm = "i3"; # Choose between i3 and hyprland
         dotfilesDir = "~/.dotfiles";
     };
 
@@ -52,7 +53,7 @@
             nixhost = lib.nixosSystem {
                 system = systemSettings.architecture;
                 modules = [
-                    ./confs/system_modules/configuration.nix
+                    ./modules/system/configuration.nix
                     ];
                 specialArgs = {
                     inherit systemSettings;
@@ -66,7 +67,7 @@
             nixuser = inputs.home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 modules = [
-                    ./confs/user_modules/home.nix
+                    ./modules/user/home.nix
                 ];
                 extraSpecialArgs = {
                     inherit systemSettings;

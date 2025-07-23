@@ -28,5 +28,14 @@
                 monospace-font-name = "Noto Sans Mono Medium 11";
             };
         }
+    ];environment.systemPackages = with pkgs; [
+        # Hyprland utils
+        waybar                                          # Status bar
+        rofi-wayland                                    # Application launcher
+        wl-clipboard                                    # Clipboard functionality
+        wlogout                                         # logout function
+        hyprlock                                        # lockscreen in hyprland
+        hypridle                                        # enable sleep when idling in hyprland
+        hyprpaper                                       # wallpaper
     ];
 }

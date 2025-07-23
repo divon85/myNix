@@ -63,7 +63,9 @@
         xfce.tumbler                                    # For Thunar thumbnails
         ffmpegthumbnailer                               # For video thumbnails
         evince
+    ];
 
+    fonts.packages = with pkgs; [
         # Fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
