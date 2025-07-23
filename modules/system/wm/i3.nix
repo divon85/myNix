@@ -4,6 +4,13 @@
         ./dbus.nix
     ];
 
+    # Security
+    security = {
+        pam.services.login.enableGnomeKeyring = true;
+        pam.services.gdm-password.enableGnomeKeyring = true;
+        rtkit.enable = true;
+    };
+
     services.xserver = {
         enable = true;
         layout = "jp";
