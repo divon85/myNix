@@ -30,7 +30,7 @@ if [ -z "$EDITOR" ]; then
     EDITOR=nano;
 fi
 $EDITOR $SCRIPT_DIR/flake.nix;
-$EDITOR $SCRIPT_DIR/modules/user/wm/hyprland/conf/extraConfigs/monitor.nix;
+# $EDITOR $SCRIPT_DIR/modules/user/wm/hyprland/conf/extraConfigs/monitor.nix;
 
 ## Copy hardware-configuration.nix
 if [ -f /etc/nixos/hardware-configuration.nix ]; then

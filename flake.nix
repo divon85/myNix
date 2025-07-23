@@ -2,15 +2,34 @@
     description = "Divon Nixos Flakes";
 
     inputs = {
+
+        # Base
         nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-        home-manager = {
-            url = "github:nix-community/home-manager";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+        # home-manager = {
+        #     url = "github:nix-community/home-manager/release-25.05";
+        #     inputs.nixpkgs.follows = "nixpkgs";
+        # };
+        nixos-hardware.url = "github:NixOS/nixos-hardware";
+        hyprland.url = "github:hyprwm/Hyprland";
+        agenix.url = "github:ryantm/agenix";
         stylix = {
             url = "github:nix-community/stylix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        # Software
+        nixos-vscode-server.flake = false;
+        nixos-vscode-server.url = "github:nix-community/nixos-vscode-server";
+        nix-index-database.url = "github:nix-community/nix-index-database";
+        nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+        hyprland.url = "github:hyprwm/Hyprland";
+
+        #Editor
+        nixvim.url = "github:nix-community/nixvim";
+        nixvim.inputs.nixpkgs.follows = "nixpkgs";
+        nix-doom-emacs-unstraightened.url = "github:marienz/nix-doom-emacs-unstraightened";
+        nix-doom-emacs-unstraightened.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     outputs = inputs@{ self, ... }:
@@ -51,7 +70,6 @@
                 system = systemSettings.architecture;
                 modules = [
                     ./modules/system/configuration.nix
-
                     ];
                 specialArgs = {
                     inherit systemSettings;
@@ -61,18 +79,18 @@
             };
         };
 
-        homeConfigurations = {
-            nixuser = inputs.home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                modules = [
-                    ./modules/user/home.nix
-                ];
-                extraSpecialArgs = {
-                    inherit systemSettings;
-                    inherit userSettings;
-                    inherit inputs;
-                };
-            };
-        };
+        # homeConfigurations = {
+        #     nixuser = inputs.home-manager.lib.homeManagerConfiguration {
+        #         inherit pkgs;
+        #         modules = [
+        #             ./modules/user/home.nix
+        #         ];
+        #         extraSpecialArgs = {
+        #             inherit systemSettings;
+        #             inherit userSettings;
+        #             inherit inputs;
+        #         };
+        #     };
+        # };
     };
 }

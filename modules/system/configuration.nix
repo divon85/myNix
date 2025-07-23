@@ -1,15 +1,12 @@
 { inputs, pkgs, lib, options, settingsettings, userSettings, ... }: {
     imports = [
         ./hardware-configuration.nix
-        ./apps/programs.nix
         ./apps/software.nix
-        ./apps/thunar.nix
-        ./style/stylix.nix
         ./settings/bootloader.nix
         ./settings/networking.nix
         ./settings/services.nix
         ./settings/timezone.nix
-        (./. + "/wm"+("/"+userSettings.wm)+".nix")
+        ./settings/user.nix
         inputs.home-manager.nixosModules.default
         inputs.vscode-server.nixosModules.default
         inputs.stylix.nixosModules.stylix
