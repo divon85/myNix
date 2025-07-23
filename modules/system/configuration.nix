@@ -1,18 +1,18 @@
-{ inputs, pkgs, lib, options, systemSettings, userSettings, ... }: {
+{ inputs, pkgs, lib, options, settingsettings, userSettings, ... }: {
     imports = [
         ./hardware-configuration.nix
         ./apps/programs.nix
         ./apps/software.nix
         ./apps/thunar.nix
         ./style/stylix.nix
-        ./systems/bootloader.nix
-        ./systems/networking.nix
-        ./systems/services.nix
-        ./systems/timezone.nix
+        ./settings/bootloader.nix
+        ./settings/networking.nix
+        ./settings/services.nix
+        ./settings/timezone.nix
         (./. + "/wm"+("/"+userSettings.wm)+".nix")
-        # inputs.home-manager.nixosModules.default
-        # inputs.vscode-server.nixosModules.default
-        # inputs.stylix.nixosModules.stylix
+        inputs.home-manager.nixosModules.default
+        inputs.vscode-server.nixosModules.default
+        inputs.stylix.nixosModules.stylix
     ];
 
     # This value determines the NixOS release from which the default

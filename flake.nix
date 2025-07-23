@@ -11,7 +11,6 @@
             url = "github:nix-community/stylix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        vscode-server.url = "github:nix-community/nixos-vscode-server";
     };
 
     outputs = inputs@{ self, ... }:
@@ -52,6 +51,7 @@
                 system = systemSettings.architecture;
                 modules = [
                     ./modules/system/configuration.nix
+
                     ];
                 specialArgs = {
                     inherit systemSettings;
