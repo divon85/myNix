@@ -8,6 +8,7 @@
         ./settings/timezone.nix
         ./settings/user.nix
         ./style/stylix.nix
+        inputs.stylix.nixosModules.stylix
     ];
 
     # This value determines the NixOS release from which the default
