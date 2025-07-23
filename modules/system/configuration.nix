@@ -7,6 +7,7 @@
         ./settings/services.nix
         ./settings/timezone.nix
         ./settings/user.nix
+        ./style/stylix.nix
     ];
 
     # This value determines the NixOS release from which the default
