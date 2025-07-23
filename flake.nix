@@ -1,90 +1,32 @@
 {
-    description = "Divon Nixos Flakes";
+  description = "NixOS + Home Manager + i3 + Stylix";
 
-    inputs = {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    home-manager.url = "github:nix-community/home-manager";
+    stylix.url = "github:nix-community/stylix";
 
-        # Base
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-        nixos-hardware.url = "github:NixOS/nixos-hardware";
-        agenix.url = "github:ryantm/agenix";
-        stylix = {
-            url = "github:nix-community/stylix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-        # Software
-        nixos-vscode-server.flake = false;
-        nixos-vscode-server.url = "github:nix-community/nixos-vscode-server";
-        nix-index-database.url = "github:nix-community/nix-index-database";
-        nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-        hyprland.url = "github:hyprwm/Hyprland/";
-
-        #Editor
-        nixvim.url = "github:nix-community/nixvim";
-        nixvim.inputs.nixpkgs.follows = "nixpkgs";
-        nix-doom-emacs-unstraightened.url = "github:marienz/nix-doom-emacs-unstraightened";
-        nix-doom-emacs-unstraightened.inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    outputs = inputs@{ self, ... }:
+  outputs = { self, nixpkgs, home-manager, stylix, ... }:
     let
-    # ---- SYSTEM SETTINGS ---- #
-    systemSettings = {
-        architecture = "x86_64-linux"; #system architecture
-        hostname = "igor-nixos";
-        timezone = "Asia/Tokyo";
-        locale = "en_US.UTF-8";
-        bootMode = "uefi"; # bios or uefi
-        bootMountPath = "/BOOT";
-        grubDevice = "/dev/sda"; # device identifier for grub; only used for legacy (bios) boot mode
-    };
-
-    # ---- USER SETTINGS ---- #
-    userSettings = {
-        username = "igor";
-        name = "Igor Novid";
-        email = "igornovid@outlook.com";
-        wm = "i3"; # Choose between i3 and hyprland
-        dotfilesDir = "~/.dotfiles";
-    };
-
-    lib = inputs.nixpkgs.lib;
-
-    pkgs = import inputs.nixpkgs {
-        system = systemSettings.architecture;
-        config = {
-            allowUnfree = true;
-            allowUnfreePredicate = (_: true);
-        };
-    };
-
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
     in {
-        nixosConfigurations = {
-            nixhost = lib.nixosSystem {
-                system = systemSettings.architecture;
-                modules = [
-                    ./modules/system/configuration.nix
-                    ];
-                specialArgs = {
-                    inherit systemSettings;
-                    inherit userSettings;
-                    inherit inputs;
-                };
-            };
-        };
-
-        # homeConfigurations = {
-        #     nixuser = inputs.home-manager.lib.homeManagerConfiguration {
-        #         inherit pkgs;
-        #         modules = [
-        #             ./modules/user/home.nix
-        #         ];
-        #         extraSpecialArgs = {
-        #             inherit systemSettings;
-        #             inherit userSettings;
-        #             inherit inputs;
-        #         };
-        #     };
-        # };
+      nixosConfigurations.gifu = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./modules/system/configuration.nix
+          stylix.nixosModules.stylix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.igor = import ./modules/user/home.nix;
+          }
+        ];
+      };
     };
 }

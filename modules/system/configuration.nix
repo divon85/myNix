@@ -1,28 +1,61 @@
-{ inputs, pkgs, lib, options, settingsettings, userSettings, ... }: {
-    imports = [
-        ./hardware-configuration.nix
-        ./apps/software.nix
-        ./settings/bootloader.nix
-        ./settings/networking.nix
-        ./settings/services.nix
-        ./settings/timezone.nix
-        ./settings/user.nix
-        ./style/stylix.nix
-        (./. + "/wm"+("/"+userSettings.wm)+".nix")
-        inputs.stylix.nixosModules.stylix
-    ];
+{ config, pkgs, ... }:
 
-    # This value determines the NixOS release from which the default
-    # settings for stateful data, like file locations and database versions
-    # on your system were taken. It‘s perfectly fine and recommended to leave
-    # this value at the release version of the first install of this system.
-    # Before changing this value read the documentation for this option
-    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "25.05"; # Did you read the comment?
+{
+  services.xserver.enable = true;
+  services.xserver.displayManager.defaultSession = "none+i3";
+  services.xserver.windowManager.i3.enable = true;
 
-    # Enable Flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  environment.systemPackages = with pkgs; [
+    i3status
+    dmenu
+    i3lock
+    lxappearance
+  ];
 
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
+  fonts.packages = with pkgs; [
+    fira-code
+    noto-fonts
+    noto-fonts-cjk
+    dejavu_fonts
+  ];
+
+  stylix = {
+    enable = true;
+    image = ./style/tiger.png;
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+
+    fonts = {
+      monospace = {
+        package = pkgs.fira-code;
+        name = "Fira Code";
+      };
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
+
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    targets.gtk = {
+      enable = true;
+      flatpakSupport.enable = true;
+    };
+  };
+
+  programs.dconf.enable = true;
+  system.stateVersion = "24.05";
 }
