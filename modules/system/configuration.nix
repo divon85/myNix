@@ -8,6 +8,7 @@
         ./settings/timezone.nix
         ./settings/user.nix
         ./style/stylix.nix
+        (./. + "/wm"+("/"+userSettings.wm)+".nix")
         inputs.stylix.nixosModules.stylix
     ];
 
