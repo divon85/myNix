@@ -35,5 +35,21 @@
             popups = 1.0;
         };
         polarity = "dark";
+
+        targets.gtk = {
+            enable = true;
+            flatpakSupport.enable = true;
+            extraCss = ''
+                * {
+                    border-radius: 6px;
+                }
+            '';
+        };
+
+        cursor = {
+            package = pkgs.bibata-cursors;
+            name = "Bibata-Modern-Ice";
+            size = 24;
+        };
     };
 }

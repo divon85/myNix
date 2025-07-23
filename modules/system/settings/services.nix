@@ -8,7 +8,7 @@
         openssh.enable = true;
 
         # Enable vscode-server
-        vscode-server.enable = true;
+        # vscode-server.enable = true;
 
         # enable trash
         gvfs.enable = true;

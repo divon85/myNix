@@ -7,6 +7,8 @@
         ./settings/services.nix
         ./settings/timezone.nix
         ./settings/user.nix
+        ./style/stylix.nix
+        # (./. + "/wm"+("/"+userSettings.wm)+".nix")
         # inputs.home-manager.nixosModules.default
         # inputs.vscode-server.nixosModules.default
         inputs.stylix.nixosModules.stylix
