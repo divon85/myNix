@@ -9,21 +9,38 @@ in
     services.greetd = {
         enable = true;
         settings = {
+            initial_session = {
+                command = session;
+                user = username;
+            };
             default_session = {
-                command = ''
+            command = ''
                 ${tuigreet}
                 --greeting 'Welcome to NixOS!'
-                --time
-                --time-format "%A %H:%M"
                 --asterisks
                 --asterisks-char "•"
                 --remember
                 --remember-user-session
-                --cmd Hyprland
-                --theme "base16-dark"
-                --width 100
-                '';
-                user = "greeter";
+                --time
+                --time-format "%A %H:%M"
+                --cmd ${session}";
+            '';
+            user = "greeter";
+            # default_session = {
+            #     command = ''
+            #     ${tuigreet}
+            #     --greeting 'Welcome to NixOS!'
+            #     --time
+            #     --time-format "%A %H:%M"
+            #     --asterisks
+            #     --asterisks-char "•"
+            #     --remember
+            #     --remember-user-session
+            #     --cmd Hyprland
+            #     --theme "base16-dark"
+            #     --width 100
+            #     '';
+            #     user = "greeter";
             };
         };
     };

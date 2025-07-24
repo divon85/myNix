@@ -6,12 +6,13 @@
     programs.home-manager.enable = true;
 
     imports = [
+        ./apps/git/default.nix
+        ./apps/nvim/default.nix
         ./apps/rofi/default.nix
         ./apps/starship/default.nix
         ./apps/vscode/default.nix
         ./apps/yazi/default.nix
         ./apps/zsh/default.nix
-        ./apps/nvim/default.nix
         ./apps/software.nix
         ./style/stylix.nix
         #./system/icons.nix
