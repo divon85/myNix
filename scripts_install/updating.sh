@@ -9,6 +9,29 @@ else
     exit 1
 fi
 
+## Check bootloader
+## Credit to Librephoenix
+echo "Checking bootloader..."
+if [ -d /sys/firmware/efi/efivars ]; then
+    sed -i "0,/bootMode.*=.*\".*\";/s//bootMode = \"uefi\";/" $SCRIPT_DIR/flake.nix
+else
+    sed -i "0,/bootMode.*=.*\".*\";/s//bootMode = \"bios\";/" $SCRIPT_DIR/flake.nix
+    grubDevice=$(findmnt / | awk -F' ' '{ print $2 }' | sed 's/\[.*\]//g' | tail -n 1 | lsblk -no pkname | tail -n 1 )
+    sed -i "0,/grubDevice.*=.*\".*\";/s//grubDevice = \"\/dev\/$grubDevice\";/" $SCRIPT_DIR/flake.nix
+fi
+
+sed -i "0,/igor/s//$(whoami)/" $SCRIPT_DIR/flake.nix
+sed -i "0,/Igor Novid/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" $SCRIPT_DIR/flake.nix
+sed -i "s/igornovid@outlook.com//" $SCRIPT_DIR/flake.nix
+sed -i "s+~/.dotfiles+$SCRIPT_DIR+g" $SCRIPT_DIR/flake.nix
+
+## Open up editor to manually edit flake.nix before install
+if [ -z "$EDITOR" ]; then
+    EDITOR=nano;
+fi
+$EDITOR $SCRIPT_DIR/flake.nix;
+$EDITOR $SCRIPT_DIR/modules/user/wm/hyprland/conf/extraConfigs/monitor.nix;
+
 ## Copy hardware-configuration.nix
 if [ -f /etc/nixos/hardware-configuration.nix ]; then
     echo "Copying hardware-configuration.nix to $SCRIPT_DIR"

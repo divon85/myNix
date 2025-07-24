@@ -1,5 +1,33 @@
-{inputs, pkgs, ... }:
+{inputs, pkgs, userSettings, ... }:
+
+let
+    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+    session = "${pkgs.hyprland}/bin/Hyprland";
+    username = userSettings.username; # replace with your actual username
+in
 {
+    services.greetd = {
+        enable = true;
+        settings = {
+            default_session = {
+                command = ''
+                ${tuigreet}
+                --greeting 'Welcome to NixOS!'
+                --time
+                --time-format "%A %H:%M"
+                --asterisks
+                --asterisks-char "•"
+                --remember
+                --remember-user-session
+                --cmd Hyprland
+                --theme "base16-dark"
+                --width 100
+                '';
+                user = "greeter";
+            };
+        };
+    };
+
     imports = [
         ./dbus.nix
     ];
@@ -17,6 +45,8 @@
         package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
         # make sure to also set the portal package, so that they are in sync
         portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        xwayland.enable = true;
+        withUWSM = true;
     };
     programs.dconf.profiles.user.databases = [
         {
@@ -28,14 +58,21 @@
                 monospace-font-name = "Noto Sans Mono Medium 11";
             };
         }
-    ];environment.systemPackages = with pkgs; [
-        # Hyprland utils
-        waybar                                          # Status bar
-        rofi-wayland                                    # Application launcher
-        wl-clipboard                                    # Clipboard functionality
-        wlogout                                         # logout function
-        hyprlock                                        # lockscreen in hyprland
-        hypridle                                        # enable sleep when idling in hyprland
-        hyprpaper                                       # wallpaper
     ];
+    
+    environment = {
+        sessionVariables = {
+            NIXOS_OZONE_WL = "1"; #Wayland hint for Electron apps
+        };
+        systemPackages = with pkgs; [
+            # Hyprland utils
+            waybar                                          # Status bar
+            rofi-wayland                                    # Application launcher
+            wl-clipboard                                    # Clipboard functionality
+            wlogout                                         # logout function
+            hyprlock                                        # lockscreen in hyprland
+            hypridle                                        # enable sleep when idling in hyprland
+            hyprpaper                                       # wallpaper
+        ];
+    };
 }

@@ -3,7 +3,7 @@
     # Enable stylix
     stylix = {
         enable = true;
-        image = ../../system_modules/style/tiger.png;
+        image = ../../system/style/tiger.png;
         fonts = {
             monospace = {
                 package = pkgs.dejavu_fonts;

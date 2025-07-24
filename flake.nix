@@ -13,7 +13,10 @@
 
 	    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
-        stylix.url = "github:nix-community/stylix/release-25.05";
+        stylix = {
+            url = "github:nix-community/stylix/release-25.05";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = inputs@{ self, ... }:
@@ -34,7 +37,7 @@
         username = "igor";
         name = "Igor Novid";
         email = "igornovid@outlook.com";
-        wm = "i3"; # Choose between i3 and hyprland
+        wm = "hyprland"; # Choose between i3 and hyprland
         dotfilesDir = "~/.dotfiles";
     };
 
