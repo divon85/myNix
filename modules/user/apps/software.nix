@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
     home.packages = with pkgs; [
         # Games
@@ -11,5 +11,13 @@
 
         # Editor
         vscode
+
+        # Required for icon display
+        papirus-icon-theme
     ];
+    home.activation.setExoTerminal = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        mkdir -p ~/.config/xfce4
+        echo "[Default Applications]" > ~/.config/xfce4/helpers.rc
+        echo "TerminalEmulator=alacritty.desktop" >> ~/.config/xfce4/helpers.rc
+    '';
 }

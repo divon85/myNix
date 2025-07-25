@@ -1,1 +1,1 @@
-wlogout
+wlogout -b 4

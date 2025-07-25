@@ -31,7 +31,8 @@
         resvg                                           # SVG rendering library
         imagemagick                                     # Image manipulation
         gum                                             # Enable options in shell scripts
-
+        ueberzugpp
+        chafa
 
         # File Manager
         yazi                                            # Terminal file manager
@@ -39,15 +40,6 @@
 
         # Apps
         grimblast                                       # Screenshot tools
-
-        # Hyprland utils
-        waybar                                          # Status bar
-        rofi-wayland                                    # Application launcher
-        wl-clipboard                                    # Clipboard functionality
-        wlogout                                         # logout function
-        hyprlock                                        # lockscreen in hyprland
-        hypridle                                        # enable sleep when idling in hyprland
-        hyprpaper                                       # wallpaper
 
         # Programming Language
         libgcc                                          # C and C++
@@ -61,6 +53,7 @@
         xfce.thunar-archive-plugin
         xfce.thunar-volman
         xfce.tumbler                                    # For Thunar thumbnails
+        xfce.exo
         ffmpegthumbnailer                               # For video thumbnails
         evince
     ];

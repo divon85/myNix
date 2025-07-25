@@ -1,1 +1,0 @@
-udisksctl mount -b /dev/nvme0n1p1

@@ -26,21 +26,6 @@ in
                 --cmd ${session}";
             '';
             user = "greeter";
-            # default_session = {
-            #     command = ''
-            #     ${tuigreet}
-            #     --greeting 'Welcome to NixOS!'
-            #     --time
-            #     --time-format "%A %H:%M"
-            #     --asterisks
-            #     --asterisks-char "•"
-            #     --remember
-            #     --remember-user-session
-            #     --cmd Hyprland
-            #     --theme "base16-dark"
-            #     --width 100
-            #     '';
-            #     user = "greeter";
             };
         };
     };
